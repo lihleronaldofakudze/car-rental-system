@@ -5,5 +5,20 @@
     "lib/**/*.jar",
     "c:\\Users\\Probook\\Documents\\mysql-connector-java-8.0.28.jar",
     "c:\\Users\\Probook\\Documents\\Setup\\mysql-connector-java-8.0.28.jar"
+  ],
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "car_rental",
+      "database": "car_rental",
+      "username": "root",
+      "password": ""
+    }
   ]
 }

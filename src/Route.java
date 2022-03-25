@@ -1,19 +1,17 @@
 import java.util.Scanner;
 import java.sql.*;
 
-public class Booking {
+public class Route {
     Scanner input = new Scanner(System.in);
      Connection connection;
      Statement statement;
 
     int id;
-    String title;
-    String description;
     String type;
-    String ticket;
-    String date;
+    String description;
+    String name;
 
-    public Booking(){
+    public Route () {
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.createStatement();
@@ -22,21 +20,19 @@ public class Booking {
        }
     }
 
-    public Booking(int id, String title, String description, String type, String ticket, String date) {
+    public Route(int id, String type, String description, String name) {
         this.id = id;
-        this.title = title;
-        this.description = description;
         this.type = type;
-        this.ticket = ticket;
-        this.date = date;
+        this.description = description;
+        this.name = name;
     }
 
     public void menu () {
-        System.out.println("Bookings Management Panel : ");
-        System.out.println("\t 1. Add New Booking");
-        System.out.println("\t 2. Update Existing Booking");
-        System.out.println("\t 3. Delete Booking");
-        System.out.println("\t 4. View Available Bookings");
+        System.out.println("Routes Management Panel : ");
+        System.out.println("\t 1. Add New Route");
+        System.out.println("\t 2. Update Existing Route");
+        System.out.println("\t 3. Delete Route");
+        System.out.println("\t 4. View Available Routes");
         System.out.println("\t 0. Exit");
         System.out.print("Your Response : ");
         int response = Integer.parseInt(input.next());
@@ -67,27 +63,21 @@ public class Booking {
 
     public void add () {
         try {
-            System.out.println("Please all required details. (Adding New Booking)");
-            System.out.print("\t Enter Title : ");
-            this.ticket = input.next();
-
-            System.out.print("\t Enter Description : ");
-            this.description = input.next();
-            
+            System.out.println("Please all required details. (Adding New Route)");
             System.out.print("\t Enter Type : ");
             this.type = input.next();
+            
+            System.out.print("\t Enter Description : ");
+            this.description = input.next();
 
-            System.out.print("\t Enter Ticket : ");
-            this.ticket = input.next();
-
-            System.out.print("\t Enter Booking Date : ");
-            this.date = input.next();
+            System.out.print("\t Enter Name : ");
+            this.name = input.next();
 
             statement = connection.createStatement();
-            String sql = "INSERT INTO Bookings (id, title, description, type, ticket, booking_date)" + 
-            "VALUES ("+ 0 +",'"+ this.title +"', '" + this.description + "', '"+ this.type +"','"+ this.ticket +"','"+ this.date +"')";
+            String sql = "INSERT INTO Routes (id, type, description, name)" + 
+            "VALUES ("+ 0 +",'"+ this.type +"', '" + this.description + "', '"+ this.name +"')";
             statement.executeUpdate(sql);
-            System.out.println("Inserted record into the table bookings...");
+            System.out.println("Inserted record into the table routes...");
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
@@ -101,13 +91,13 @@ public class Booking {
     public void delete () {
         try {
         System.out.println();
-        System.out.println("Please all required details. (Delete Booking)");
-        System.out.print("\t Enter Booking Id : ");
+        System.out.println("Please all required details. (Delete Route)");
+        System.out.print("\t Enter Route Id : ");
         this.id = Integer.parseInt(input.next());
 
-        String sql = "DELETE FROM Bookings WHERE id = " + this.id+"";
+        String sql = "DELETE FROM Routes WHERE id = " + this.id+"";
      statement.executeUpdate(sql);
-     System.out.println("Deleted a record into the table bookings...");
+     System.out.println("Deleted a record into the table routes...");
     } catch (SQLException e) {
         e.printStackTrace();
            System.exit(0);
@@ -119,22 +109,19 @@ public class Booking {
             connection = DatabaseConnection.getConnection();
             statement = connection.createStatement();
 
-            String query = "SELECT id, title, description, type, ticket, booking_date FROM Bookings";
+            String query = "SELECT id, type, description, name FROM Routes";
             ResultSet resultSet = statement.executeQuery(query);
 
-            System.out.println("All Bookings");
-            System.out.println("=============");
+            System.out.println("All Routes");
+            System.out.println("==========");
             while (resultSet.next()) {
                 System.out.print("[ID]: " + resultSet.getInt("id"));
-                System.out.print(", [TITLE]: " + resultSet.getString("title"));
-                System.out.print(", [DESCRIPTION]: " + resultSet.getString("description"));
                 System.out.print(", [TYPE]: " + resultSet.getString("type"));
-                System.out.print(", [TICKET]: " + resultSet.getString("ticket"));
-                System.out.println(", [BOOKING DATE]: " + resultSet.getString("booking_date"));
+                System.out.print(", [DESCRIPTION]: " + resultSet.getString("description"));
+                System.out.println(", [NAME]: " + resultSet.getString("name"));
              }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
 }
