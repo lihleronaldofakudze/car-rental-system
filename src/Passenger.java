@@ -24,7 +24,7 @@ public class Passenger {
        }
     }
 
-    public Passenger(int id, String name, int phoneNumber, String address, String email){
+    public Passenger(int id, String name, int phoneNumber, String addres, String email){
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -98,8 +98,38 @@ public class Passenger {
         }
     }
 
-    public boolean update (int id, String name, int phoneNumber, String address, String email) {
-        return false;
+    public void update () {
+        try {
+            System.out.println("Please all required details. (Update Existing Passenger)");
+            System.out.print("\t Enter Passenger ID : ");
+            this.id = Integer.parseInt(input.next());
+
+            System.out.print("\t Enter Name : ");
+            this.name = input.next();
+
+            System.out.print("\t Enter Phone Number : ");
+            this.phoneNumber = Integer.parseInt(input.next());
+            
+            System.out.print("\t Enter Address : ");
+            this.address = input.next();
+
+            System.out.print("\t Enter Email : ");
+            this.email = input.next();
+
+            System.out.print("\t Enter Username : ");
+            this.username = input.next();
+
+            System.out.print("\t Enter Password : ");
+            this.password = input.next();
+
+            statement = connection.createStatement();
+            String sql = "UPDATE Passengers SET name = '"+ this.name +"', phone_number = " + this.phoneNumber + ", email = '"+ this.email +"', address = '"+ this.address +"', username = '"+ this.username +"', password = '"+ this.password +"' WHERE id = " + this.id;
+            statement.executeUpdate(sql);
+            System.out.println("Updated record into the table passengers...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     public void delete () {

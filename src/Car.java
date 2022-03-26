@@ -12,6 +12,7 @@ public class Car {
     String category;
     String description;
     int ownerId;
+    String password;
 
     public Car () {
         try {
@@ -22,13 +23,14 @@ public class Car {
         }
     }
 
-    public Car(int id, String number, String type, String category, String description, int ownerId) {
+    public Car(int id, String number, String type, String category, String description, int ownerId, String password) {
         this.id = id;
         this.number = number;
         this.type = type;
         this.category = category;
         this.description = description;
         this.ownerId = ownerId;
+        this.password = password;
     }
 
     public void menu () {
