@@ -71,36 +71,36 @@ CREATE TABLE Drivers (
 
 -- INNER JOIN
 -- @block
-SELECT column_name(s)
-FROM table1
-INNER JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT *
+FROM administrators
+INNER JOIN roles
+ON administrators.role_id = roles.id;
 
 -- @block
-SELECT column_name(s)
-FROM table1
-INNER JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT name, username
+FROM administrators
+INNER JOIN roles
+ON administrators.role_id = roles.id;
 
 -- OUTER JOIN
 -- @block
-SELECT column_name(s)
-FROM table1
-OUTER JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT title
+FROM roles
+OUTER JOIN administrators
+ON roles.id = administrators.role_id;
 
 -- @block
-SELECT column_name(s)
-FROM table1
-OUTER JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT username, password
+FROM administrators
+OUTER JOIN roles
+ON administrators.role_id = roles.id;
 
 -- LEFT OUTER JOIN
 -- @block
-SELECT column_name(s)
-FROM table1
-LEFT JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT email, address
+FROM administartors
+LEFT JOIN roles
+ON administrators.role_id = roles.id;
 
 -- @block
 SELECT column_name(s)
@@ -110,74 +110,74 @@ ON table1.column_name = table2.column_name;
 
 -- RIGHT OUTER JOIN
 -- @block
-SELECT column_name(s)
-FROM table1
-RIGHT JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT title, description
+FROM roles
+RIGHT JOIN administrators
+ON roles.id = administrators.role_id;
 
 -- @block
-SELECT column_name(s)
-FROM table1
-RIGHT JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT username, password
+FROM administrators
+RIGHT JOIN roles
+ON administrators.role_id = roles.id;
 
 -- FULL OUTER JOIN
 -- @block
-SELECT * FROM table1
-FULL OUTER JOIN table2
-ON table2.column_name = table1.column_name
+SELECT * FROM administrators
+FULL OUTER JOIN roles
+ON roles.id = administrators.role_id;
 
 -- @block
-SELECT * FROM table1
-FULL OUTER JOIN table2
-ON table2.column_name = table1.column_name
+SELECT * FROM roles
+FULL OUTER JOIN administrators
+ON administrators.role_id = roles.id;
 
 -- UNION
 -- @block
-SELECT column_name(s) FROM table1
+SELECT * FROM bookings
 UNION
-SELECT column_name(s) FROM table2;
+SELECT * FROM passengers;
 
 
 -- @block
-SELECT column_name(s) FROM table1
+SELECT name, driver_number FROM drivers
 UNION ALL
-SELECT column_name(s) FROM table2;
+SELECT car_number FROM cars;
 
 -- VIEWS
 -- @block
-CREATE VIEW view_name AS
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition;
+CREATE VIEW scheduled_bookings AS
+SELECT *.
+FROM bookings
+WHERE type = 'scheduled';
 
 -- VIEWS
 -- @block
-CREATE VIEW view_name AS
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition;
+CREATE VIEW specific_owner_id AS
+SELECT car_number, type, category
+FROM cars
+WHERE owner_id = 24;
 
 -- STORED PROCEDURES
 -- @block
-CREATE PROCEDURE procedure_name
+CREATE PROCEDURE all_drivers
 AS
-SELECT * FROM table_name
+SELECT * FROM drivers
 GO;
 
-EXEC procedure_name;
+EXEC all_drivers;
 -- @block
-CREATE PROCEDURE procedure_name
+CREATE PROCEDURE all_bookings
 AS
-SELECT * FROM table_name
+SELECT * FROM bookings
 GO;
 
-EXEC procedure_name;
-
+EXEC all_bookings;
 -- @block
-CREATE PROCEDURE procedure_name
+
+CREATE PROCEDURE all_passengers
 AS
-SELECT * FROM table_name
+SELECT * FROM passengers
 GO;
 
-EXEC procedure_name;
+EXEC all_passengers;

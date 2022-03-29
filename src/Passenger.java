@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Passenger {
     Scanner input = new Scanner(System.in);
-     Connection connection;
-     Statement statement;
+    Connection connection;
+    Statement statement;
 
     int id;
     String name;
@@ -14,24 +14,23 @@ public class Passenger {
     String username;
     String password;
 
-
-    public Passenger () {
+    public Passenger() {
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.createStatement();
-       } catch (SQLException e) {
-           e.printStackTrace();
-       }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Passenger(int id, String name, int phoneNumber, String addres, String email){
+    public Passenger(int id, String name, int phoneNumber, String addres, String email) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
-    public void menu () {
+    public void menu() {
         System.out.println("Passenger Management Panel : ");
         System.out.println("\t 1. Add New Passenger");
         System.out.println("\t 2. Update Existing Passenger");
@@ -57,16 +56,21 @@ public class Passenger {
             delete();
             System.out.println();
             menu();
-        }   else if (response == 4) {
+        } else if (response == 4) {
             view();
             System.out.println();
-             menu();
-        } else {
+            menu();
+        } else if (response == 0) {
+            System.out.println("Exiting...");
             System.exit(0);
+        } else {
+            System.out.println("Invalid Response");
+            System.out.println();
+            menu();
         }
     }
 
-    public void add () {
+    public void add() {
         try {
             System.out.println("Please all required details. (Adding New Passenger)");
             System.out.print("\t Enter Name : ");
@@ -74,7 +78,7 @@ public class Passenger {
 
             System.out.print("\t Enter Phone Number : ");
             this.phoneNumber = Integer.parseInt(input.next());
-            
+
             System.out.print("\t Enter Address : ");
             this.address = input.next();
 
@@ -88,8 +92,9 @@ public class Passenger {
             this.password = input.next();
 
             statement = connection.createStatement();
-            String sql = "INSERT INTO Passengers (id, name, phone_number, email, address, username, password)" + 
-            "VALUES ("+ 0 +",'"+ this.name +"', " + this.phoneNumber + ", '"+ this.email +"','"+ this.address +"','"+ this.username +"', '"+ this.password +"')";
+            String sql = "INSERT INTO Passengers (id, name, phone_number, email, address, username, password)" +
+                    "VALUES (" + 0 + ",'" + this.name + "', " + this.phoneNumber + ", '" + this.email + "','"
+                    + this.address + "','" + this.username + "', '" + this.password + "')";
             statement.executeUpdate(sql);
             System.out.println("Inserted record into the table passengers...");
         } catch (SQLException e) {
@@ -98,7 +103,7 @@ public class Passenger {
         }
     }
 
-    public void update () {
+    public void update() {
         try {
             System.out.println("Please all required details. (Update Existing Passenger)");
             System.out.print("\t Enter Passenger ID : ");
@@ -109,7 +114,7 @@ public class Passenger {
 
             System.out.print("\t Enter Phone Number : ");
             this.phoneNumber = Integer.parseInt(input.next());
-            
+
             System.out.print("\t Enter Address : ");
             this.address = input.next();
 
@@ -123,7 +128,9 @@ public class Passenger {
             this.password = input.next();
 
             statement = connection.createStatement();
-            String sql = "UPDATE Passengers SET name = '"+ this.name +"', phone_number = " + this.phoneNumber + ", email = '"+ this.email +"', address = '"+ this.address +"', username = '"+ this.username +"', password = '"+ this.password +"' WHERE id = " + this.id;
+            String sql = "UPDATE Passengers SET name = '" + this.name + "', phone_number = " + this.phoneNumber +
+                    ", email = '" + this.email + "', address = '" + this.address + "', username = '" + this.username +
+                    "', password = '" + this.password + "' WHERE id = " + this.id;
             statement.executeUpdate(sql);
             System.out.println("Updated record into the table passengers...");
         } catch (SQLException e) {
@@ -132,23 +139,23 @@ public class Passenger {
         }
     }
 
-    public void delete () {
+    public void delete() {
         try {
-        System.out.println();
-        System.out.println("Please all required details. (Delete Passenger)");
-        System.out.print("\t Enter Passenger Id : ");
-        this.id = Integer.parseInt(input.next());
+            System.out.println();
+            System.out.println("Please all required details. (Delete Passenger)");
+            System.out.print("\t Enter Passenger Id : ");
+            this.id = Integer.parseInt(input.next());
 
-        String sql = "DELETE FROM Passengers WHERE id = " + this.id+"";
-     statement.executeUpdate(sql);
-     System.out.println("Deleted a record into the table passengers...");
-    } catch (SQLException e) {
-        e.printStackTrace();
-           System.exit(0);
+            String sql = "DELETE FROM Passengers WHERE id = " + this.id + "";
+            statement.executeUpdate(sql);
+            System.out.println("Deleted a record into the table passengers...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
         }
     }
 
-    public void view () {
+    public void view() {
         try {
             connection = DatabaseConnection.getConnection();
             statement = connection.createStatement();
@@ -166,7 +173,7 @@ public class Passenger {
                 System.out.print(", [EMAIL]: " + resultSet.getString("email"));
                 System.out.print(", [USERNAME]: " + resultSet.getString("username"));
                 System.out.println(", [PASSWORD]: " + resultSet.getString("password"));
-             }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
