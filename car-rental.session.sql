@@ -77,35 +77,35 @@ INNER JOIN roles
 ON administrators.role_id = roles.id;
 
 -- @block
-SELECT name, username
-FROM administrators
-INNER JOIN roles
-ON administrators.role_id = roles.id;
+SELECT *
+FROM roles
+INNER JOIN administrators
+ON roles.id = administrators.id;
 
 -- OUTER JOIN
 -- @block
 SELECT title
 FROM roles
-OUTER JOIN administrators
+LEFT OUTER JOIN administrators
 ON roles.id = administrators.role_id;
 
 -- @block
 SELECT username, password
 FROM administrators
-OUTER JOIN roles
+RIGHT OUTER JOIN roles
 ON administrators.role_id = roles.id;
 
 -- LEFT OUTER JOIN
 -- @block
 SELECT email, address
-FROM administartors
-LEFT JOIN roles
+FROM administrators
+LEFT OUTER JOIN roles
 ON administrators.role_id = roles.id;
 
 -- @block
 SELECT column_name(s)
 FROM table1
-LEFT JOIN table2
+LEFT OUTER JOIN table2
 ON table1.column_name = table2.column_name;
 
 -- RIGHT OUTER JOIN
@@ -144,7 +144,7 @@ SELECT name, driver_number FROM drivers
 UNION ALL
 SELECT car_number FROM cars;
 
--- VIEWS
+-- VIEWS*
 -- @block
 CREATE VIEW scheduled_bookings AS
 SELECT *.
@@ -173,8 +173,8 @@ SELECT * FROM bookings
 GO;
 
 EXEC all_bookings;
--- @block
 
+-- @block
 CREATE PROCEDURE all_passengers
 AS
 SELECT * FROM passengers

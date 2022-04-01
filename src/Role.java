@@ -75,7 +75,7 @@ public class Role {
 
             statement = connection.createStatement();
             String sql = "INSERT INTO Roles (id, title, description)" +
-                    "VALUES (" + 0 + "," + this.id + ", '" + this.title + "', '" + this.description + "')";
+                    "VALUES (" + this.id + ", '" + this.title + "', '" + this.description + "')";
             statement.executeUpdate(sql);
             System.out.println("Inserted record into the table roles...");
         } catch (SQLException e) {
@@ -135,7 +135,7 @@ public class Role {
             System.out.println("=========");
             while (resultSet.next()) {
                 System.out.print("[ID]: " + resultSet.getInt("id"));
-                System.out.print(", [TITLE]: " + resultSet.getInt("title"));
+                System.out.print(", [TITLE]: " + resultSet.getString("title"));
                 System.out.println(", [DESCRIPTION]: " + resultSet.getString("description"));
             }
         } catch (SQLException e) {

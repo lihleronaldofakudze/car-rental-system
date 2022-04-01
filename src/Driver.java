@@ -94,7 +94,7 @@ public class Driver {
             this.password = input.next();
 
             statement = connection.createStatement();
-            String sql = "INSERT INTO Drivers (id, name, phone_number, email, address, username, password)" +
+            String sql = "INSERT INTO Drivers (id, name, driver_number, email, address, username, password)" +
                     "VALUES (" + 0 + ",'" + this.name + "', " + this.phoneNumber + ", '" + this.email + "','"
                     + this.address + "','" + this.username + "', '" + this.password + "')";
             statement.executeUpdate(sql);
@@ -108,6 +108,9 @@ public class Driver {
     public void update() {
         try {
             System.out.println("Please all required details. (Updating Existing Driver)");
+
+            System.out.print("\t Enter Driver Id : ");
+            this.id = Integer.parseInt(input.next());
 
             System.out.print("\t Enter Name : ");
             this.name = input.next();
@@ -128,7 +131,7 @@ public class Driver {
             this.password = input.next();
 
             statement = connection.createStatement();
-            String sql = "UPDATE Drivers SET name = '" + this.name + "', phone_number = " + this.phoneNumber
+            String sql = "UPDATE Drivers SET name = '" + this.name + "', driver_number = " + this.phoneNumber
                     + ", email = '" + this.email + "', address = '" + this.address + "', username = '" + this.username
                     + "', password = '" + this.password + "' WHERE id = " + this.id;
             statement.executeUpdate(sql);

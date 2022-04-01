@@ -74,7 +74,7 @@ public class Booking {
         try {
             System.out.println("Please all required details. (Adding New Booking)");
             System.out.print("\t Enter Title : ");
-            this.ticket = input.next();
+            this.title = input.next();
 
             System.out.print("\t Enter Description : ");
             this.description = input.next();

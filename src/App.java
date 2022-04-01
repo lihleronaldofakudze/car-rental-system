@@ -86,7 +86,7 @@ public class App {
             System.out.println("\t 1. Car Management");
             System.out.println("\t 2. Booking Management");
             System.out.println("\t 3. Passenger Management");
-            System.out.println("\t 4. Car Routes Management");
+            System.out.println("\t 4. Routes Management");
             System.out.println("\t 5. Drivers Management");
             System.out.println("\t 6. Role Management");
             System.out.println("\t 7. Administrator Management");

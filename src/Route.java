@@ -92,6 +92,10 @@ public class Route {
     public void update() {
         try {
             System.out.println("Please all required details. (Updating Existing Route)");
+
+            System.out.print("\t Enter Route Id : ");
+            this.id = Integer.parseInt(input.next());
+
             System.out.print("\t Enter Type : ");
             this.type = input.next();
 
