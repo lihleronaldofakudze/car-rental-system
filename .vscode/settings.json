@@ -15,8 +15,8 @@
       "server": "localhost",
       "port": 3306,
       "driver": "MySQL",
-      "name": "car_rental",
-      "database": "car_rental",
+      "name": "Car Rental System",
+      "database": "902008012_902008049_902007983_902007972_902007943_902007900",
       "username": "root",
       "password": ""
     }

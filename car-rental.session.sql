@@ -1,4 +1,6 @@
-CREATE DATABASE 902006542_902006542_902006542_902006542_902006542_902006542;
+
+-- @block
+CREATE DATABASE 902008012_902008049_902007983_902007972_902007943_902007900;
 
 -- @block
 CREATE TABLE Roles (
@@ -69,6 +71,21 @@ CREATE TABLE Drivers (
 	password VARCHAR(255) NOT NULL
 );
 
+-- COMPARISON OPERATORS
+-- @block
+SELECT * FROM passengers
+WHERE name='Khulani' OR username='Khuks';
+
+-- @block
+SELECT * FROM routes
+WHERE name='MR3' AND type='HighWay';
+
+-- @block
+SELECT * FROM bookings
+WHERE NOT ticket='LF8956' AND NOT booking_date='2022-12-12';
+
+
+
 -- INNER JOIN
 -- @block
 SELECT *
@@ -103,10 +120,10 @@ LEFT OUTER JOIN roles
 ON administrators.role_id = roles.id;
 
 -- @block
-SELECT column_name(s)
-FROM table1
-LEFT OUTER JOIN table2
-ON table1.column_name = table2.column_name;
+SELECT title, description
+FROM roles
+LEFT OUTER JOIN administrators
+ON roles.id = administrators.role_id;
 
 -- RIGHT OUTER JOIN
 -- @block
@@ -124,7 +141,7 @@ ON administrators.role_id = roles.id;
 -- FULL OUTER JOIN
 -- @block
 SELECT * FROM administrators
-FULL OUTER JOIN roles
+OUTER JOIN roles
 ON roles.id = administrators.role_id;
 
 -- @block
@@ -147,37 +164,68 @@ SELECT car_number FROM cars;
 -- VIEWS*
 -- @block
 CREATE VIEW scheduled_bookings AS
-SELECT *.
+SELECT *
 FROM bookings
 WHERE type = 'scheduled';
 
--- VIEWS
 -- @block
 CREATE VIEW specific_owner_id AS
 SELECT car_number, type, category
 FROM cars
 WHERE owner_id = 24;
 
+-- @block
+CREATE VIEW admin_credentials AS
+SELECT username, password
+FROM administrators;
+
 -- STORED PROCEDURES
 -- @block
-CREATE PROCEDURE all_drivers
-AS
-SELECT * FROM drivers
-GO;
+DELIMITER $$
 
-EXEC all_drivers;
--- @block
-CREATE PROCEDURE all_bookings
-AS
-SELECT * FROM bookings
-GO;
+CREATE PROCEDURE GetAllRoutes()
+BEGIN
+	SELECT *  FROM routes;
+END $$
 
-EXEC all_bookings;
+DELIMITER ;
 
 -- @block
-CREATE PROCEDURE all_passengers
-AS
-SELECT * FROM passengers
-GO;
+DELIMITER $$
 
-EXEC all_passengers;
+CREATE PROCEDURE GetAllDrivers()
+BEGIN
+	SELECT *  FROM drivers;
+END $$
+
+DELIMITER ;
+
+-- @block
+DELIMITER $$
+
+CREATE PROCEDURE GetAllRoles()
+BEGIN
+	SELECT *  FROM roles;
+END $$
+
+DELIMITER ;
+
+
+-- TRIGGERS
+CREATE TRIGGER deleting_booking
+AFTER DELETE 
+ON bookings FOR EACH ROW
+SELECT * FROM bookings;
+delimiter ;
+
+CREATE TRIGGER inserting_cars
+AFTER INSERT 
+ON bookings FOR EACH ROW
+SELECT * FROM cars;
+delimiter ;
+
+CREATE TRIGGER updating_passengers
+BEFORE UPDATE 
+ON bookings FOR EACH ROW
+SELECT * FROM passengers;
+delimiter ;
